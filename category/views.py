@@ -33,7 +33,6 @@ def category_new(request):
 
 def category_edit(request, pk):
     category = get_object_or_404(Category, pk=pk)
-    print (category)
     if request.method == 'POST':
         form = CategoryForm(request.POST, instance=category)
         if form.is_valid():
@@ -46,3 +45,12 @@ def category_edit(request, pk):
         'form': form,
     }
     return render(request, "category/category_new.html", context)
+
+def shop_detail(request, shop_pk):
+    shop = get_object_or_404(Shop, pk=shop_pk)
+    context = {
+        'shop': shop,
+    }
+    return render(request, "shop/shop_detail.html", context)
+
+

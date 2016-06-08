@@ -6,8 +6,10 @@ this is index
 </a>
 
 {% for shop in category.get_shop_list %}
+<a href="{% url 'shop_detail' shop.pk%}">
     <img src="{{shop.first_photo.url}}" />
     {{shop.title}}
+</a>
 {% endfor %}
 
 {% endfor %}
