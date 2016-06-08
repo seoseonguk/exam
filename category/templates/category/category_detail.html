@@ -2,3 +2,11 @@
 {{category.title}}
 
 <a href ="{% url 'category_edit' category.pk %}"> 수정 </a>
+
+<br>
+{% for shop in category.get_shop_list %}
+<div class = "row">
+    <img src="{{shop.first_photo.url}}" />
+    {{shop.title}}
+</div>
+{% endfor %}
