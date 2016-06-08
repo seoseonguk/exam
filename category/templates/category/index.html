@@ -3,12 +3,14 @@
 <div class="row">
 
 <a href= "{% url 'category_new' %}"> <h2>카테고리 추가</h2></a>
+<a href= "{% url 'shop_new' %}"> <h2>상품 추가</h2></a>
+
 <br/>
 </div>
 {% for category in category_list %}
 <div class="row">
 <a href ="{% url 'category_detail' category.pk %}">
-<h1>{{ category.title }}</h1>
+<h1>{{ category.title }}<small><a href="{% url 'category_edit' category.pk %}">  카테고리 수정</a></small></h1>
 </a>
 {% for shop in category.get_shop_list %}
 <div class="col-sm-4">
