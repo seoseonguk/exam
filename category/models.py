@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 class Category(models.Model):
@@ -27,3 +28,15 @@ class Shop(models.Model):
 
     def __str__(self):
         return self.title
+
+class Review(models.Model):
+    shop = models.ForeignKey('Shop')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    comment = models.TextField()
+    photo = models.ImageField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+    def __str__(self):
+        return self.comment
