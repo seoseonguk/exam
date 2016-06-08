@@ -30,3 +30,19 @@ def category_new(request):
         'form': form,
     }
     return render(request, "category/category_new.html", context)
+
+def category_edit(request, pk):
+    category = get_object_or_404(Category, pk=pk)
+    print (category)
+    if request.method == 'POST':
+        form = CategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            category = form.save(commit=False)
+            category.save()
+            return redirect('category_detail', pk)
+    else:
+        form = CategoryForm(instance=category)
+    context = {
+        'form': form,
+    }
+    return render(request, "category/category_new.html", context)
