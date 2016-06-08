@@ -5,7 +5,6 @@ class Category(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-
     def get_shop_list(self):
         shop_list = Shop.objects.filter(categories=self)
         return shop_list
@@ -24,7 +23,7 @@ class Shop(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    categories = models.OneToOneField(Category)
+    categories = models.ForeignKey('Category')
 
     def __str__(self):
         return self.title
