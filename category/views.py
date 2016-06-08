@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render, get_object_or_404
 from .forms import CategoryForm, ReviewForm, ShopForm
 from .models import Category, Shop, Review
@@ -82,7 +83,7 @@ def shop_edit(request, pk):
     }
     return render(request, "shop/shop_new.html", context)
 
-
+@login_required
 def review_new(request, shop_pk):
     if request.method == 'POST':
         form = ReviewForm(request.POST, request.FILES)
@@ -99,7 +100,7 @@ def review_new(request, shop_pk):
     }
     return render(request, "review/review_new.html", context)
 
-
+@login_required
 def review_edit(request, shop_pk, pk):
     review = get_object_or_404(Review, pk=pk)
     if request.method == 'POST':
