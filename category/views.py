@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render, get_object_or_404
-from .forms import CategoryForm, ReviewForm
+from .forms import CategoryForm, ReviewForm, ShopForm
 from .models import Category, Shop, Review
 
 
@@ -46,12 +46,41 @@ def category_edit(request, pk):
     }
     return render(request, "category/category_new.html", context)
 
+
 def shop_detail(request, shop_pk):
     shop = get_object_or_404(Shop, pk=shop_pk)
     context = {
         'shop': shop,
     }
     return render(request, "shop/shop_detail.html", context)
+
+def shop_new(request):
+    if request.method == 'POST':
+        form = ShopForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = ShopForm()
+    context = {
+        'form': form,
+    }
+    return render(request, "shop/shop_new.html", context)
+
+def shop_edit(request, pk):
+    shop = get_object_or_404(Shop, pk=pk)
+    if request.method == 'POST':
+        form = ShopForm(request.POST, instance=shop)
+        if form.is_valid():
+            shop = form.save(commit=False)
+            shop.save()
+            return redirect('category_detail', pk)
+    else:
+        form = ShopForm(instance=shop)
+    context = {
+        'form': form,
+    }
+    return render(request, "shop/shop_new.html", context)
 
 
 def review_new(request, shop_pk):
