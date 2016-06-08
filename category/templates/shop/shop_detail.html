@@ -7,6 +7,10 @@
 
 {% for review in shop.get_review_list %}
 
-<p>    {{review.comment }}</p>
+<p>    {{review.comment }}
+<a href = "{% url 'review_edit' shop.pk review.pk %}"> 수정 </a>
+
+</p>
+
 <br />
 {% endfor %}

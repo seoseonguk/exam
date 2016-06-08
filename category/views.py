@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from .forms import CategoryForm, ReviewForm
-from .models import Category, Shop
+from .models import Category, Shop, Review
 
 
 
@@ -69,7 +69,23 @@ def review_new(request, shop_pk):
         'form': form,
     }
     return render(request, "review/review_new.html", context)
+
+
 def review_edit(request, shop_pk, pk):
-    pass
+    review = get_object_or_404(Review, pk=pk)
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.shop = get_object_or_404(Shop, pk=shop_pk)
+            review.user = request.user
+            review.save()
+            return redirect('shop_detail', shop_pk)
+    else:
+        form = ReviewForm(instance=review)
+    context = {
+        'form': form,
+    }
+    return render(request, "review/review_new.html", context)
 
 
