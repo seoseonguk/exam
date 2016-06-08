@@ -1,1 +1,7 @@
 this is index
+
+{% for category in category_list %}
+<a href ="{% url 'category_detail' category.pk %}">
+<p>{{ category.title }}</p>
+</a>
+{% endfor %}
