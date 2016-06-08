@@ -83,39 +83,44 @@ def shop_edit(request, pk):
     }
     return render(request, "shop/shop_new.html", context)
 
-@login_required
 def review_new(request, shop_pk):
-    if request.method == 'POST':
-        form = ReviewForm(request.POST, request.FILES)
-        if form.is_valid():
-            review = form.save(commit=False)
-            review.shop = get_object_or_404(Shop, pk=shop_pk)
-            review.user = request.user
-            review.save()
-            return redirect('shop_detail', shop_pk)
+    if request.user.is_authenticated():
+
+        if request.method == 'POST':
+            form = ReviewForm(request.POST, request.FILES)
+            if form.is_valid():
+                review = form.save(commit=False)
+                review.shop = get_object_or_404(Shop, pk=shop_pk)
+                review.user = request.user
+                review.save()
+                return redirect('shop_detail', shop_pk)
+        else:
+            form = ReviewForm()
+        context = {
+            'form': form,
+        }
     else:
-        form = ReviewForm()
-    context = {
-        'form': form,
-    }
+        return redirect('login')
     return render(request, "review/review_new.html", context)
 
-@login_required
 def review_edit(request, shop_pk, pk):
     review = get_object_or_404(Review, pk=pk)
-    if request.method == 'POST':
-        form = ReviewForm(request.POST, request.FILES, instance=review)
-        if form.is_valid():
-            review = form.save(commit=False)
-            review.shop = get_object_or_404(Shop, pk=shop_pk)
-            review.user = request.user
-            review.save()
-            return redirect('shop_detail', shop_pk)
+    if request.user.is_authenticated():
+        if request.method == 'POST':
+            form = ReviewForm(request.POST, request.FILES, instance=review)
+            if form.is_valid():
+                review = form.save(commit=False)
+                review.shop = get_object_or_404(Shop, pk=shop_pk)
+                review.user = request.user
+                review.save()
+                return redirect('shop_detail', shop_pk)
+        else:
+            form = ReviewForm(instance=review)
+        context = {
+            'form': form,
+        }
     else:
-        form = ReviewForm(instance=review)
-    context = {
-        'form': form,
-    }
+        return redirect('login')
     return render(request, "review/review_new.html", context)
 
 
