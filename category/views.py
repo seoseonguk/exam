@@ -56,7 +56,7 @@ def shop_detail(request, shop_pk):
 
 def shop_new(request):
     if request.method == 'POST':
-        form = ShopForm(request.POST)
+        form = ShopForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('home')
@@ -70,7 +70,7 @@ def shop_new(request):
 def shop_edit(request, pk):
     shop = get_object_or_404(Shop, pk=pk)
     if request.method == 'POST':
-        form = ShopForm(request.POST, instance=shop)
+        form = ShopForm(request.POST, request.FILES, instance=shop)
         if form.is_valid():
             shop = form.save(commit=False)
             shop.save()
@@ -85,7 +85,7 @@ def shop_edit(request, pk):
 
 def review_new(request, shop_pk):
     if request.method == 'POST':
-        form = ReviewForm(request.POST)
+        form = ReviewForm(request.POST, request.FILES)
         if form.is_valid():
             review = form.save(commit=False)
             review.shop = get_object_or_404(Shop, pk=shop_pk)
@@ -103,7 +103,7 @@ def review_new(request, shop_pk):
 def review_edit(request, shop_pk, pk):
     review = get_object_or_404(Review, pk=pk)
     if request.method == 'POST':
-        form = ReviewForm(request.POST, instance=review)
+        form = ReviewForm(request.POST, request.FILES, instance=review)
         if form.is_valid():
             review = form.save(commit=False)
             review.shop = get_object_or_404(Shop, pk=shop_pk)
