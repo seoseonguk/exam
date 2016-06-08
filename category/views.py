@@ -68,8 +68,8 @@ def shop_new(request):
     }
     return render(request, "shop/shop_new.html", context)
 
-def shop_edit(request, pk):
-    shop = get_object_or_404(Shop, pk=pk)
+def shop_edit(request, shop_pk):
+    shop = get_object_or_404(Shop, pk=shop_pk)
     if request.method == 'POST':
         form = ShopForm(request.POST, request.FILES, instance=shop)
         if form.is_valid():
