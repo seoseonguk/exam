@@ -1,18 +1,29 @@
-this is index
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
 
+<a href= "{% url 'category_new' %}"> <h2>카테고리 추가</h2></a>
+<br/>
+</div>
 {% for category in category_list %}
+<div class="row">
 <a href ="{% url 'category_detail' category.pk %}">
-<p>{{ category.title }}</p>
+<h1>{{ category.title }}</h1>
 </a>
-
 {% for shop in category.get_shop_list %}
+<div class="col-sm-4">
 <a href="{% url 'shop_detail' shop.pk%}">
-    <img src="{{shop.first_photo.url}}" />
-    {{shop.title}}
+    <img src="{{shop.first_photo.url}}" class="img-responsive center-block" />
+    <span>{{shop.title}}</span>
 </a>
+</div>
 {% endfor %}
 
+</div>
+<hr/>
+
 {% endfor %}
 
 
-<a href= "{% url 'category_new' %}"> 카테고리 추가 </a>
+
+{% endblock %}

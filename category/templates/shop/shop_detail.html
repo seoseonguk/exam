@@ -1,16 +1,29 @@
-{{ shop.title }}
+{% extends "base.html" %}
+{% block content %}
+<div class ="row">
 
-    <img src="{{shop.first_photo.url}}" />
-
-{{ shop.description }}
+<h1>{{ shop.title }}<small><a href = "{% url 'shop_edit' shop.pk %}"> 수정 </a></small></h1>
 
 
+<img src="{{shop.first_photo.url}}" class="img-responsive"/>
+
+<div class='col-sm-3'>
+<h3>Description</h3>
+</div>
+<div class='col-sm-9'>
+<p>{{ shop.description }}</p>
+</div>
+<br/>
+</div>
+<div class="row">
 {% for review in shop.get_review_list %}
-
-<p>    {{review.comment }}
+<div class="col-sm-3">
+<p>    {{review.comment }} by {{review.user}}
 <a href = "{% url 'review_edit' shop.pk review.pk %}"> 수정 </a>
 
 </p>
-
-<br />
+</div>
 {% endfor %}
+<a href= "{% url 'review_new' shop.pk %}"> 리뷰 작성 </a>
+</div>
+{% endblock %}

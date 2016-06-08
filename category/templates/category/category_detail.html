@@ -1,12 +1,16 @@
-
-{{category.title}}
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+<h1>{{category.title}}</h1>
 
 <a href ="{% url 'category_edit' category.pk %}"> 수정 </a>
 
 <br>
+</div>
 {% for shop in category.get_shop_list %}
 <div class = "row">
     <img src="{{shop.first_photo.url}}" />
     {{shop.title}}
 </div>
 {% endfor %}
+{% endblock %}
