@@ -8,3 +8,14 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
+
+class Shop(models.Model):
+    title = models.CharField(max_length=20)
+    contact_num = models.CharField(max_length=20)
+    address = models.CharField(max_length=100)
+    description = models.TextField()
+    first_photo = models.ImageField()
+    second_photo = models.ImageField(blank=True)
+    third_photo = models.ImageField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
