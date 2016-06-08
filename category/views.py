@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import redirect, render, get_object_or_404
 from .forms import CategoryForm, ReviewForm, ShopForm
 from .models import Category, Shop, Review
@@ -19,6 +20,7 @@ def category_detail(request, pk):
     }
     return render(request, "category/category_detail.html", context)
 
+@staff_member_required
 def category_new(request):
     if request.method == 'POST':
         form = CategoryForm(request.POST)
@@ -32,6 +34,8 @@ def category_new(request):
     }
     return render(request, "category/category_new.html", context)
 
+
+@staff_member_required
 def category_edit(request, pk):
     category = get_object_or_404(Category, pk=pk)
     if request.method == 'POST':
