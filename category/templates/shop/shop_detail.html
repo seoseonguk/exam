@@ -3,3 +3,10 @@
     <img src="{{shop.first_photo.url}}" />
 
 {{ shop.description }}
+
+
+{% for review in shop.get_review_list %}
+
+<p>    {{review.comment }}</p>
+
+{% endfor %}

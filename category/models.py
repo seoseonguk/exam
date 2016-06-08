@@ -29,6 +29,10 @@ class Shop(models.Model):
     def __str__(self):
         return self.title
 
+    def get_review_list(self):
+        review_list = Review.objects.filter(shop=self)
+        return review_list
+
 class Review(models.Model):
     shop = models.ForeignKey('Shop')
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
