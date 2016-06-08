@@ -8,6 +8,9 @@ this is index
 {% for shop in category.get_shop_list %}
     <img src="{{shop.first_photo.url}}" />
     {{shop.title}}
+{% endfor %}
 
 {% endfor %}
-{% endfor %}
+
+
+<a href= "{% url 'category_new' %}"> 카테고리 추가 </a>

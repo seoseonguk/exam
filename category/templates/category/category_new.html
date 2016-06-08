@@ -1,0 +1,14 @@
+<form action ="" method = "post">
+
+{% csrf_token %}
+
+<table>
+
+{{form.as_table}}
+
+</table>
+<input type="submit" />
+
+</form>
+
+<a href ="{% url 'home' %}">홈으로 </a>

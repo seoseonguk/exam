@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
+from .forms import CategoryForm
 from .models import Category, Shop
 
 
@@ -16,3 +17,16 @@ def category_detail(request, pk):
         'category': category,
     }
     return render(request, "category/category_detail.html", context)
+
+def category_new(request):
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    else:
+        form = CategoryForm()
+    context = {
+        'form': form,
+    }
+    return render(request, "category/category_new.html", context)
