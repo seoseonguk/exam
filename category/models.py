@@ -6,6 +6,10 @@ class Category(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 
+    def get_shop_list(self):
+        shop_list = Shop.objects.filter(categories=self)
+        return shop_list
+
     def __str__(self):
         return self.title
 
